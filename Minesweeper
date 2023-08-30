@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int countMines(vector<vector<int>>& mines, int i, int j)
+{
+ 
+    int count = 0;
+    if (i > 0 && j > 0 && mines[i - 1][j - 1] == 1)
+        count++;
+    if (i > 0 && mines[i - 1][j] == 1)
+        count++;
+    if (i > 0 && j < mines[0].size() - 1 && mines[i - 1][j + 1] == 1)
+        count++;
+    if (j > 0 && mines[i][j - 1] == 1)
+        count++;
+    if (j < mines[0].size() - 1 && mines[i][j + 1] == 1)
+        count++;
+
+    if (i < mines.size() - 1 && j > 0 && mines[i + 1][j - 1] == 1)
+        count++;
+
+    if (i < mines.size() - 1 && mines[i + 1][j] == 1)
+        count++;
+
+    // Check bottom right cell
+    if (i < mines.size() - 1 && j < mines[0].size() - 1 && mines[i + 1][j + 1] == 1)
+        count++;
+
+    return count;
+}
+
+int main()
+{
+    // Read in the size of the matrix
+    int m, n;
+    cin >> m >> n;
+
+    // Read in the matrix of mines
+    vector<vector<int>> mines(m, vector<int>(n));
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            cin >> mines[i][j];
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            // Print the number of mines around the cell
+            cout << countMines(mines, i, j) << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
